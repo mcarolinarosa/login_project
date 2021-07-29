@@ -1,0 +1,15 @@
+.profile-comp {
+  //display: flex;
+  height: 50%;
+  flex-direction: column;
+  padding-right: 25px;
+  padding-left: 25px;
+  margin-top: 25px;
+
+  a {
+    color: #552547;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px auto;
+  }
+}

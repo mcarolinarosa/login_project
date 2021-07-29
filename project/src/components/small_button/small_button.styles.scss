@@ -1,0 +1,24 @@
+.small-button {
+  box-shadow: 8px 8px 15px -10px rgb(50, 24, 92);
+  border-radius: 6px;
+  border: none;
+  display: inline-block;
+  background-color: #a07995;
+  cursor: pointer;
+  color: #ede2ea;
+  font-size: 15px;
+  font-weight: 600;
+  padding: 8px 15px;
+  text-decoration: none;
+  height: 35px;
+  margin: 10px auto;
+}
+
+.small-button:hover {
+  background-color: rgb(201, 181, 232);
+}
+
+.small-button:active {
+  position: relative;
+  top: 1px;
+}

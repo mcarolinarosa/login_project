@@ -1,0 +1,24 @@
+.login-comp {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  padding-right: 25px;
+  padding-left: 25px;
+  margin-top: 25px;
+
+  a {
+    color: #552547;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 10px auto;
+  }
+
+  .googleButton {
+    margin: 0 auto;
+    //display: block;
+  }
+
+  label {
+    color: #552547;
+  }
+}

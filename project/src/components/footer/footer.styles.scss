@@ -1,0 +1,20 @@
+.footer-div {
+  width: 100%;
+  background: #552547;
+  .footerLink {
+    margin: auto;
+    display: flex;
+    list-style: none;
+    width: 350px;
+    height: 70px;
+    justify-content: space-evenly;
+    padding: 10px;
+
+    li a {
+      color: rgb(209, 209, 209);
+      text-decoration: none;
+      font-weight: 600;
+      font-size: 14px;
+    }
+  }
+}

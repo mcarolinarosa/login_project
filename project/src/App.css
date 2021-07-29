@@ -1,0 +1,9 @@
+.content-page {
+  min-height: 100vh;
+  margin-bottom: -70px;
+}
+.content-page::after {
+  content: "";
+  display: block;
+  height: 70px;
+}

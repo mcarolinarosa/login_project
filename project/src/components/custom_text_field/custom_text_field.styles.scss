@@ -1,0 +1,24 @@
+.group {
+  position: relative;
+
+  .text-field {
+    background: white;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    display: block;
+    width: 95%;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    margin: 12px 0;
+
+    &::placeholder {
+      color: #945c84;
+    }
+
+    &:focus {
+      outline: none;
+    }
+  }
+}
