@@ -13,30 +13,18 @@
   label {
     color: #552547;
   }
-  .search-image {
-    display: flex;
-    justify-content: center;
-    align-items: center;
 
-    .text-field-image {
-      background: white;
-      background-color: white;
-      color: black;
-      font-size: 16px;
-      padding: 10px 10px 10px 5px;
-      display: block;
-      width: 95%;
-      border-radius: 10px;
-      border: 1px solid rgb(255, 255, 255);
-      margin: 12px 12px 12px 0px;
-
-      &::placeholder {
-        color: #945c84;
-      }
-
-      &:focus {
-        outline: none;
-      }
-    }
+  .text-field-image {
+    float: right;
+    background: white;
+    background-color: white;
+    color: black;
+    font-size: 16px;
+    padding: 10px 10px 10px 5px;
+    width: 50%;
+    border-radius: 10px;
+    border: 1px solid rgb(255, 255, 255);
+    margin: 12px 0px 12px 12px;
+    color: #945c84;
   }
 }

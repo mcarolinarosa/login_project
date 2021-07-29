@@ -42,8 +42,4 @@ public class LoginDTO {
     @Column(nullable = false, unique = true)
     private String password;
 
-    public boolean verifyLogin(User userLogin, LoginDTO user) {
-        return userLogin.getPassword().equals(user.getPassword());
-    }
-
 }

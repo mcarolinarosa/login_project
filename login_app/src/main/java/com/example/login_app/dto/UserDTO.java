@@ -25,9 +25,9 @@ import lombok.ToString;
 @AllArgsConstructor
 public class UserDTO {
 
-    public UserDTO(String name, String email, String image) {
+    public UserDTO(String name, /* String email, */ String image) {
         this.name = name;
-        this.email = email;
+        // this.email = email;
         this.image = image;
     }
 

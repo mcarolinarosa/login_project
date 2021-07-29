@@ -1,25 +1,24 @@
-import React from "react";
+import React, { useState } from "react";
 
 import * as API from "../../config/API";
 
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import CustomTextField from "../custom_text_field/custom_text_field.component";
 import CustomButton from "../custom_button/custom_button.component";
-import GoogleButton from "react-google-button";
-import { withRouter } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 
 import "./login.styles.scss";
 
-class Login extends React.Component {
-  constructor(props) {
-    super(props);
+function Login() {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
 
-    this.state = { email: "", password: "" };
-  }
+  const history = useHistory();
+  const notify = (text) => toast(text);
 
-  handleSubmit = async (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-
-    const { email, password } = this.state;
 
     await fetch(API.apiPath + "api/login", {
       method: "POST",
@@ -34,10 +33,13 @@ class Login extends React.Component {
       .then(async (response) => {
         if (response.status === 200) {
           const data = await response.json();
-          return this.props.history.push({
+          return history.push({
             pathname: "/profile",
             state: { user: data },
           });
+        } else {
+          const data = await response.json();
+          notify(data.message);
         }
       })
       .catch((error) => {
@@ -45,45 +47,41 @@ class Login extends React.Component {
       });
   };
 
-  handleChange = (event) => {
-    const { value, name } = event.target;
+  return (
+    <div>
+      <form className="login-comp" onSubmit={handleSubmit}>
+        <CustomTextField
+          required
+          type="email"
+          name="email"
+          label="Email"
+          value={email}
+          handleChange={(e) => setEmail(e.target.value)}
+        />
+        <CustomTextField
+          required
+          type="password"
+          name="password"
+          label="Password"
+          value={password}
+          handleChange={(e) => setPassword(e.target.value)}
+        />
 
-    this.setState({ [name]: value });
-  };
-
-  render() {
-    return (
-      <div>
-        <form className="login-comp" onSubmit={this.handleSubmit}>
-          <CustomTextField
-            type="email"
-            name="email"
-            label="Email"
-            value={this.state.email}
-            handleChange={this.handleChange}
-          />
-          <CustomTextField
-            type="password"
-            name="password"
-            label="Password"
-            value={this.state.password}
-            handleChange={this.handleChange}
-          />
-          <a className="raised" href="/forgot_pass">
-            Forgot Password...
-          </a>
-          <CustomButton type="submit">Sign In</CustomButton>
-          <GoogleButton
-            className="googleButton"
-            label="Sign in using Google"
-            onClick={() => {
-              console.log("Google button clicked");
-            }}
-          />{" "}
-        </form>
-      </div>
-    );
-  }
+        <CustomButton type="submit">Sign In</CustomButton>
+      </form>
+      <ToastContainer
+        position="bottom-center"
+        autoClose={5000}
+        hideProgressBar
+        newestOnTop={false}
+        closeOnClick
+        rtl={false}
+        pauseOnFocusLoss
+        draggable
+        pauseOnHover
+      />
+    </div>
+  );
 }
 
-export default withRouter(Login);
+export default Login;

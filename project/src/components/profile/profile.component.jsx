@@ -19,7 +19,15 @@ function Profile(props) {
       <div className="profile-comp">
         {!isEditOn ? (
           <div>
-            <CustomTextDisplay value={image} />
+            <img
+              className="profile-pic"
+              alt="profile_image"
+              src={
+                image === null
+                  ? "https://cdn.pixabay.com/photo/2016/08/08/09/17/avatar-1577909_960_720.png"
+                  : `data:image/jpeg;base64,${image}`
+              }
+            />
             <CustomTextDisplay label="Name" value={name} />
             <CustomTextDisplay label="Email" value={email} />
           </div>

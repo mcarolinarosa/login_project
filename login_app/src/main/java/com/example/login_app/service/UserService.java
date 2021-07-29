@@ -8,6 +8,7 @@ import com.example.login_app.dto.UserDTO;
 import com.example.login_app.model.User;
 import com.example.login_app.repository.UserRepository;
 
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -15,9 +16,21 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
     @Autowired
+    private PasswordEncoder bcryptEncoder;
+
+    @Autowired
     private UserRepository userRepository;
 
-    public User createUser(User user) {
+    public User createUser(User user, String repeatPassword) {
+
+        user.setPassword(bcryptEncoder.encode(user.getPassword()));
+
+        if (!bcryptEncoder.matches(repeatPassword, user.getPassword())) {
+            throw new RuntimeException("Password do not match the repeated!");
+        }
+
+        if (userRepository.checkIfEmailExists(user.getEmail()) != 0)
+            throw new RuntimeException("Email already exists!");
 
         return userRepository.save(user);
     }
@@ -26,7 +39,7 @@ public class UserService {
         User userLogin = userRepository.findByEmail(user.getEmail())
                 .orElseThrow(() -> new RuntimeException("User Id not found: " + user.getEmail()));
 
-        if (!user.verifyLogin(userLogin, user))
+        if (!bcryptEncoder.matches(user.getPassword(), userLogin.getPassword()))
             throw new RuntimeException("Wrong Email or Password!");
 
         return new UserDTO(userLogin);
@@ -51,7 +64,7 @@ public class UserService {
         String newPassword = params.get("newPassword");
         String repeatPassword = params.get("passwordRepeat");
 
-        if (!oldPassword.equals(userToEdit.getPassword())) {
+        if (!bcryptEncoder.matches(oldPassword, userToEdit.getPassword())) {
             throw new RuntimeException("The old password is incorrect!");
         }
 
@@ -59,7 +72,7 @@ public class UserService {
             throw new RuntimeException("The new password does not match the repeated!");
         }
 
-        userToEdit.setPassword(newPassword);
+        userToEdit.setPassword(bcryptEncoder.encode(newPassword));
 
         userToEdit = userRepository.save(userToEdit);
         return new UserDTO(userToEdit);
